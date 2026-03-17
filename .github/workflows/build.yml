@@ -24,13 +24,14 @@ jobs:
       - name: Build iOS
         run: |
           cd ios/App
-          xcodebuild -project App.xcodeproj -scheme App -configuration Debug -destination generic/platform=iOS CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO -disableAutomaticPackageResolution build 2>&1 || true
+          xcodebuild -project App.xcodeproj -scheme App -configuration Debug -destination generic/platform=iOS CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO build 2>&1 || true
 
       - name: Create IPA
         run: |
           cd ios/App
+          ls -la build/Build/Products/ || true
           mkdir -p Payload
-          cp -r build/Build/Products/Debug-iphoneos/App.app Payload/App.app 2>/dev/null || cp -r build/Build/Products/*/App.app Payload/App.app
+          cp -r build/Build/Products/Debug-iphoneos/App.app Payload/App.app 2>/dev/null || true
           cd Payload
           zip -r ../App.ipa .
 
