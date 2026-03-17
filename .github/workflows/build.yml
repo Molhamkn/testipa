@@ -24,9 +24,8 @@ jobs:
       - name: Build iOS
         run: |
           cd ios/App
-          xcodebuild -project App.xcodeproj -scheme App -configuration Debug -destination generic/platform=iOS CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO archive -archivePath ./App.xcarchive
-          xcodebuild -exportArchive -archivePath ./App.xcarchive -exportPath ./Output -exportOptionsPlist /dev/null 2>/dev/null || cp -R Output/*.app Payload/App.app 2>/dev/null || echo "Trying alternative..."
-          ls -la Output/
+          xcodebuild -project App.xcodeproj -scheme App -configuration Debug -destination generic/platform=iOS CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO -clonedSourcePackagesDirPath .packages archive -archivePath ./App.xcarchive 2>&1
+          ls -la
 
       - name: Upload IPA
         uses: actions/upload-artifact@v4
