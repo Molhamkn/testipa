@@ -7,8 +7,19 @@
     "cap:sync": "npx cap sync"
   },
   "dependencies": {
-    "@capacitor/cli": "^8.2.0",
-    "@capacitor/core": "^5.7.8",
-    "@capacitor/ios": "^5.7.8"
-  }
+    "@capacitor/cli": "^5.7.0",
+    "@capacitor/core": "^5.7.0",
+    "@capacitor/ios": "^5.7.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Molhamkn/testipa.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Molhamkn/testipa/issues"
+  },
+  "homepage": "https://github.com/Molhamkn/testipa#readme"
 }
