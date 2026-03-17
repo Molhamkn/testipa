@@ -30,8 +30,10 @@ jobs:
         run: |
           cd ios/App
           ls -la build/Build/Products/
+          PRODUCT_PATH=$(find build/Build/Products -name "*.app" -type d | head -1)
+          echo "Found app at: $PRODUCT_PATH"
           mkdir -p Payload
-          cp -r build/Build/Products/Debug-iphoneos/App.app Payload/App.app
+          cp -r "$PRODUCT_PATH" Payload/App.app
           cd Payload
           zip -r ../App.ipa .
 
