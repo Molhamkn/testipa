@@ -29,8 +29,10 @@ jobs:
       - name: Create IPA
         run: |
           cd ios/App
+          ls -la build/Build/Products/ || echo "Products dir not found"
+          ls -la build/Build/Products/Debug-iphoneos/ 2>/dev/null || echo "Debug-iphoneos not found"
           mkdir -p Payload
-          cp -r build/Build/Products/Debug-iphoneos/App.app Payload/App.app 2>/dev/null || cp -r build/Build/Products/*/App.app Payload/App.app
+          cp -r build/Build/Products/Debug-iphoneos/App.app Payload/App.app
           cd Payload
           zip -r ../App.ipa .
 
