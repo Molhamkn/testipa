@@ -1,0 +1,13 @@
+{
+  "name": "test-app",
+  "version": "1.0.0",
+  "description": "Test app with text box",
+  "main": "index.html",
+  "scripts": {
+    "cap:sync": "npx cap sync"
+  },
+  "dependencies": {
+    "@capacitor/core": "^5.7.0",
+    "@capacitor/ios": "^5.7.0"
+  }
+}
