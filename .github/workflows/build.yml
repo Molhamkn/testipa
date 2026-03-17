@@ -24,16 +24,18 @@ jobs:
       - name: Build iOS
         run: |
           cd ios/App
-          xcodebuild -project App.xcodeproj -scheme App -configuration Debug -destination generic/platform=iOS CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO build 2>&1 || true
+          set +e
+          xcodebuild -project App.xcodeproj -scheme App -configuration Debug -destination generic/platform=iOS CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO build
 
       - name: Create IPA
         run: |
           cd ios/App
-          ls -la build/Build/Products/ || true
+          ls -la build/Build/Products/
           mkdir -p Payload
-          cp -r build/Build/Products/Debug-iphoneos/App.app Payload/App.app 2>/dev/null || true
+          cp -r build/Build/Products/Debug-iphoneos/App.app Payload/App.app || true
+          ls -la Payload/
           cd Payload
-          zip -r ../App.ipa .
+          zip -r ../App.ipa . || true
 
       - name: Upload IPA
         uses: actions/upload-artifact@v4
