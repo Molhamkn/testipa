@@ -21,11 +21,6 @@ jobs:
       - name: Install npm dependencies
         run: npm install
 
-      - name: Resolve Swift packages
-        run: |
-          cd ios/App
-          xcodebuild -project App.xcodeproj -scheme App -resolvePackageDependencies
-
       - name: Build iOS
         run: |
           cd ios/App
