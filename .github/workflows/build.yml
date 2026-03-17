@@ -24,17 +24,15 @@ jobs:
       - name: Build iOS
         run: |
           cd ios/App
-          xcodebuild -project App.xcodeproj -scheme App -configuration Debug -destination generic/platform=iOS CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO archive -archivePath App.xcarchive 2>&1 || true
+          xcodebuild -project App.xcodeproj -scheme App -configuration Debug -destination generic/platform=iOS CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO build 2>&1 || true
 
       - name: Create IPA
         run: |
           cd ios/App
-          ls -la
-          ls -la App.xcarchive/
-          ls -la App.xcarchive/Products/ 2>/dev/null || echo "No Products"
-          ls -la App.xcarchive/Products/Application/ 2>/dev/null || echo "No Application"
+          APP_PATH=$(find build/Build/Products -name "*.app" -type d 2>/dev/null | head -1)
+          echo "Found app at: $APP_PATH"
           mkdir -p Payload
-          cp -R App.xcarchive/Products/Application/*.app Payload/ 2>/dev/null || echo "Copy failed"
+          cp -R "$APP_PATH" Payload/App.app
           cd Payload
           zip -r ../App.ipa .
 
@@ -42,4 +40,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: app.ipa
-          path: ios/App/Output/*.ipa
+          path: ios/App/App.ipa
