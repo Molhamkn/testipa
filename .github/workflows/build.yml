@@ -21,18 +21,21 @@ jobs:
       - name: Install npm dependencies
         run: npm install
 
+      - name: Resolve Swift packages
+        run: |
+          cd ios/App
+          xcodebuild -project App.xcodeproj -scheme App -resolvePackageDependencies
+
       - name: Build iOS
         run: |
           cd ios/App
-          xcodebuild -project App.xcodeproj -scheme App -configuration Debug -destination generic/platform=iOS CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO build
+          xcodebuild -project App.xcodeproj -scheme App -configuration Debug -destination generic/platform=iOS CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO -derivedDataPath build build
 
       - name: Create IPA
-        env:
-          PRODUCT_BUILT: build/Build/Products/Debug-iphoneos/App.app
         run: |
           cd ios/App
           mkdir -p Payload
-          cp -r "$PRODUCT_BUILT" Payload/App.app
+          cp -r build/Build/Products/Debug-iphoneos/App.app Payload/App.app
           cd Payload
           zip -r ../App.ipa .
 
