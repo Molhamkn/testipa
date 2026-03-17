@@ -29,8 +29,11 @@ jobs:
       - name: Create IPA
         run: |
           cd ios/App
-          xcodebuild -exportArchive -archivePath App.xcarchive -exportPath Output -exportOptionsPlist /dev/null CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO 2>/dev/null || true
-          ls -la Output/
+          ls -la
+          mkdir -p Payload
+          cp -R App.xcarchive/Products/Application/*.app Payload/
+          cd Payload
+          zip -r ../App.ipa .
 
       - name: Upload IPA
         uses: actions/upload-artifact@v4
