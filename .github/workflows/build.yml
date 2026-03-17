@@ -24,7 +24,9 @@ jobs:
       - name: Build iOS
         run: |
           cd ios/App
-          xcodebuild -project App.xcodeproj -scheme App -configuration Debug -destination generic/platform=iOS CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO -derivedDataPath build -skipPackagePluginValidation -skipMacroValidation build 2>&1 | tail -50
+          xcodebuild -project App.xcodeproj -scheme App -configuration Debug -destination generic/platform=iOS CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO -derivedDataPath build -skipPackagePluginValidation -skipMacroValidation build
+          echo "BUILD OUTPUT:"
+          ls -la build/Build/Products/
 
       - name: Create IPA
         run: |
