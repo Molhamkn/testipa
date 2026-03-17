@@ -29,6 +29,7 @@ jobs:
       - name: Create IPA
         run: |
           cd ios/App
+          ls -la build/Build/Products/
           mkdir -p Payload
           cp -r build/Build/Products/Debug-iphoneos/App.app Payload/App.app
           cd Payload
